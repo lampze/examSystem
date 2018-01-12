@@ -1,23 +1,26 @@
 .header {
-    background-color: blue;
+    background-color: #1af;
+    text-align: center;
+    line-height: 40px;
     display: block;
-    height: 50px;
+    height: 40px;
 }
 
 .bodyer {
-    background-color: red;
+    background-color: #bbb;
     position: absolute;
     width: 100%;
-    top: 50px;
+    top: 40px;
     bottom: 0px;
 }
 
 .main {
-    background-color: yellow;
+    border-style: none solid none none;
     float: left;
     width: 80%;
     height: 100%;
-    font-size: 30px;
+    font-size: 20px;
+    position: relative;
 }
 
 .subject {
@@ -25,11 +28,18 @@
 }
 
 .option {
-    background-color: purple;
+    border-style: solid none;
     position: absolute;
+    display: block;
     bottom: 100px;
-    width: 80%;
+    width: 100%;
     height: 100px;
+    text-align: center;
+}
+
+.option botton {
+    width: 22%;
+    margin: 26px auto;
 }
 
 .control {
@@ -37,11 +47,13 @@
     position: absolute;
     height: 100px;
     bottom: 0;
-    width: 80%;
+    width: 100%
 }
 
 .sidebar {
+    float: right;
+    width: 20%;
     background-color: #aaa;
     height: 100%;
-    font-size: 25px;
+    font-size: 18px;
 }
