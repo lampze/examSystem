@@ -25,6 +25,12 @@
 
 .subject {
     background-color: orange;
+    font-size: 22px;
+    overflow: auto;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 200px;
 }
 
 .option {
@@ -56,4 +62,5 @@
     background-color: #aaa;
     height: 100%;
     font-size: 18px;
+    overflow: auto;
 }
