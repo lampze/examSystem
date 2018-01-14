@@ -31,9 +31,10 @@
     width: 100%;
     top: 0;
     bottom: 200px;
+    padding: 8px;
 }
 
-.option {
+.options {
     border-style: solid none;
     position: absolute;
     display: block;
@@ -43,7 +44,7 @@
     text-align: center;
 }
 
-.option botton {
+.options botton {
     width: 22%;
     margin: 26px auto;
 }
