@@ -24,11 +24,6 @@ for(let i = 0; i < option.length; i++) {
   };
 }
 
-option.onclick = function() {
-  optA.classList.remove("btn-default");
-  optA.classList.add("btn-primary");
-};
-
 function displaySubject(subDom, dataObj) {
   let str = dataObj.head + "\n\n";
   for(let i = 0; i < dataObj.body.length; i++) {
@@ -60,9 +55,9 @@ function getRandSubject(data, time) {
     return false;
   }
   for(let i = 0; i < time; i++) {
-    isRepeat = true;
+    var isRepeat = true;
     while(isRepeat) {
-      randNum = random(0,data.length);
+      var randNum = random(0,data.length);
       isRepeat = false;
       for(let j = 0; j < allRandNum.length; j++) {
         if(randNum == allRandNum[j]) {
