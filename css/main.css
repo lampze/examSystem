@@ -54,7 +54,23 @@
     position: absolute;
     height: 100px;
     bottom: 0;
-    width: 100%
+    width: 100%;
+    overflow: auto;
+    padding: 6px;
+}
+
+.control div {
+    display: inline-block;
+}
+
+.sub-num {
+    width: 50px;
+}
+
+.arrow {
+    text-align: center;
+    width: 60px;
+    cursor: pointer;
 }
 
 .sidebar {
@@ -64,4 +80,8 @@
     height: 100%;
     font-size: 18px;
     overflow: auto;
+}
+
+.hide {
+    display: none;
 }
