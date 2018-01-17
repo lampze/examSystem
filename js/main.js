@@ -4,6 +4,9 @@ function getElements(dom) {
 
 var subject = getElements("subject")[0];
 var option = getElements("option");
+var randOrNot = getElements("randOrNot")[0];
+var subjectTotal = getElements("subject-total")[0];
+var subjectTime = getElements("subject-time")[0];
 
 var user = {};
 
@@ -23,6 +26,18 @@ for(let i = 0; i < option.length; i++) {
     }
   };
 }
+
+randOrNot.onclick = function() {
+  if(randOrNot.checked) {
+    subjectTime.classList.remove("hide");
+  } else {
+    subjectTime.classList.add("hide");
+  }
+}
+
+subjectTotal.innerText = examData.length + 1;
+
+
 
 function displaySubject(subDom, dataObj) {
   let str = dataObj.head + "\n\n";
