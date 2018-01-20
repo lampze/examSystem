@@ -103,18 +103,18 @@ var user = {};
 
 
 for(let i = 0; i < option.length; i++) {
-  var obj = option[i];
-  obj.onclick = function() {
-    var opt = option[i];
-    opt.classList.remove("btn-default");
-    opt.classList.add("btn-primary");
-    user.subjectData[user.index].userChoice = option[i].innerText;
+  option[i].onclick = function() {
+    option[i].classList.remove("btn-default");
+    option[i].classList.add("btn-primary");
+
+    if(user.subjectData) {
+      user.subjectData[user.index].userChoice = option[i].innerText;
+    }
 
     for(let j = 0; j < option.length; j++) {
       if(j != i) {
-        var opts = option[j];
-        opts.classList.remove("btn-primary");
-        opts.classList.add("btn-default");
+        option[j].classList.remove("btn-primary");
+        option[j].classList.add("btn-default");
       }
     }
   };
