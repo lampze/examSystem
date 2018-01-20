@@ -7,6 +7,10 @@ var option = getElements("option");
 var randOrNot = getElements("randOrNot")[0];
 var subjectTotal = getElements("subject-total")[0];
 var subjectTime = getElements("subject-time")[0];
+var examStart = getElements("exam-start")[0];
+var startControl = getElements("start-control")[0];
+var arrowAfter = getElements("arrow-after")[0];
+var arrowNext = getElements("arrow-next")[0];
 
 var user = {};
 
@@ -33,11 +37,62 @@ randOrNot.onclick = function() {
   } else {
     subjectTime.classList.add("hide");
   }
-}
+};
+
+arrowNext.onclick = function() {
+  if(user.index == user.subjectData.length - 1) {
+    return false;
+  } else {
+    displaySubject(subject, user.subjectData[user.index + 1]);
+    user.index++;
+  }
+};
+
+arrowAfter.onclick = function() {
+  if(user.index == 0) {
+    return false;
+  } else {
+    displaySubject(subject, user.subjectData[user.index - 1]);
+    user.index--;
+  }
+};
+
+examStart.onclick = function() {
+  var minSubjectNum = getElements("min-subject-num")[0].value;
+  var maxSubjectNum = getElements("max-subject-num")[0].value;
+  var isRand = randOrNot.checked;
+  if(!checkIntNum(minSubjectNum) || !checkIntNum(maxSubjectNum)) {
+    return false;
+  }
+
+  if(isRand) {
+    if(checkIntNum(subjectTime.value)) {
+      user.subjectData = getRandSubject(examData.slice(minSubjectNum-1, maxSubjectNum), subjectTime.value);
+    } else {
+      return false;
+    }
+  } else {
+    user.subjectData = cloneObj(examData.slice(minSubjectNum-1, maxSubjectNum));
+  }
+
+  displaySubject(subject, user.subjectData[0]);
+  user.index = 0;
+
+  startControl.classList.add("hide");
+  arrowAfter.classList.remove("hide");
+  arrowNext.classList.remove("hide");
+};
 
 subjectTotal.innerText = examData.length + 1;
 
 
+
+function checkIntNum(data) {
+  if(!/^\d+$/.test(data))
+    return false;
+  else
+    return true;
+}
 
 function displaySubject(subDom, dataObj) {
   let str = dataObj.head + "\n\n";
@@ -47,7 +102,7 @@ function displaySubject(subDom, dataObj) {
   subDom.innerText = str;
 }
 
-var cloneObj = function (obj) {
+function cloneObj (obj) {
     var newObj = {};
     if (obj instanceof Array) {
         newObj = [];
@@ -87,6 +142,3 @@ function getRandSubject(data, time) {
   }
   return randData;
 }
-
-var randSubject = getRandSubject(examData, 50);
-displaySubject(subject, randSubject[0]);
