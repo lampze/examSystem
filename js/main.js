@@ -60,28 +60,13 @@ function getRandSubject(data, time) {
 }
 
 function selectTrueOption(dataObj) {
-  function getRealNum(str) {
-    switch(str) {
-    case 'A':
-      return 0;
-    case 'B':
-      return 1;
-    case 'C':
-      return 2;
-    case 'D':
-      return 3;
-    default:
-      return false;
-    }
-  }
-
   for(let i = 0; i < option.length; i++) {
-    if(i !== getRealNum(dataObj.userChoice)) {
-      option[i].classList.remove("btn-primary");
-      option[i].classList.add("btn-default");
-    } else {
+    if(dataObj.userChoice === option[i].innerText) {
       option[i].classList.remove("btn-default");
       option[i].classList.add("btn-primary");
+    } else {
+      option[i].classList.remove("btn-primary");
+      option[i].classList.add("btn-default");
     }
   }
 }
