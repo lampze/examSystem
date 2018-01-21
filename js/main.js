@@ -71,6 +71,13 @@ function selectTrueOption(dataObj) {
   }
 }
 
+function saveUser() {
+  if(window.localStorage) {
+    var storage = window.localStorage;
+    window.localStorage.user = JSON.stringify(user);
+  }
+}
+
 
 
 var subject = getElements("subject")[0];
@@ -97,6 +104,7 @@ for(let i = 0; i < option.length; i++) {
 
     if(user.subjectData) {
       user.subjectData[user.index].userChoice = option[i].innerText;
+      saveUser();
     }
 
     for(let j = 0; j < option.length; j++) {
@@ -123,6 +131,7 @@ arrowNext.onclick = function() {
     displaySubject(user.subjectData[user.index + 1]);
     user.index++;
   }
+  saveUser();
 };
 
 arrowAfter.onclick = function() {
@@ -132,6 +141,7 @@ arrowAfter.onclick = function() {
     displaySubject(user.subjectData[user.index - 1]);
     user.index--;
   }
+  saveUser();
 };
 
 examStart.onclick = function() {
@@ -155,6 +165,8 @@ examStart.onclick = function() {
   displaySubject(user.subjectData[0]);
   user.index = 0;
 
+  saveUser();
+
   startControl.classList.add("hide");
   arrowAfter.classList.remove("hide");
   arrowNext.classList.remove("hide");
@@ -171,5 +183,24 @@ submit.onclick = function() {
   for(let i = 0; i < option.length; i++ ) {
     option[i].classList.remove("btn-primary");
     option[i].classList.add("btn-default");
+  }
+
+  user = {};
+  delete window.localStorage.user;
+};
+
+window.onload = function() {
+  if(window.localStorage.user) {
+    var localUser = JSON.parse(localStorage.user);
+
+    if(localUser.subjectData) {
+      user = localUser;
+      displaySubject(user.subjectData[user.index]);
+
+      startControl.classList.add("hide");
+      arrowAfter.classList.remove("hide");
+      arrowNext.classList.remove("hide");
+      submit.classList.remove("hide");
+    }
   }
 };
