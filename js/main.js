@@ -82,10 +82,13 @@ var examStart = getElements("exam-start")[0];
 var startControl = getElements("start-control")[0];
 var arrowAfter = getElements("arrow-after")[0];
 var arrowNext = getElements("arrow-next")[0];
+var submit = getElements("submit")[0];
 
 var user = {};
 
 
+
+subjectTotal.innerText = examData.length + 1;
 
 for(let i = 0; i < option.length; i++) {
   option[i].onclick = function() {
@@ -155,6 +158,18 @@ examStart.onclick = function() {
   startControl.classList.add("hide");
   arrowAfter.classList.remove("hide");
   arrowNext.classList.remove("hide");
+  submit.classList.remove("hide");
 };
 
-subjectTotal.innerText = examData.length + 1;
+submit.onclick = function() {
+  subject.innerText = "";
+  arrowAfter.classList.add("hide");
+  arrowNext.classList.add("hide");
+  submit.classList.add("hide");
+  startControl.classList.remove("hide");
+
+  for(let i = 0; i < option.length; i++ ) {
+    option[i].classList.remove("btn-primary");
+    option[i].classList.add("btn-default");
+  }
+};
