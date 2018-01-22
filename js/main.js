@@ -59,6 +59,15 @@ function getRandSubject(data, time) {
   return randData;
 }
 
+function getSubject(data, min, max) {
+  var subjectData = [];
+  subjectData = cloneObj(data.slice(min-1, max));
+  for(let i = 0; i < subjectData.length; i++) {
+    subjectData[i].number = min - 1 + i;
+  }
+  return subjectData;
+}
+
 function selectTrueOption(dataObj) {
   for(let i = 0; i < option.length; i++) {
     if(dataObj.userChoice === option[i].innerText) {
@@ -90,6 +99,10 @@ var startControl = getElements("start-control")[0];
 var arrowAfter = getElements("arrow-after")[0];
 var arrowNext = getElements("arrow-next")[0];
 var submit = getElements("submit")[0];
+var coverPage = getElements("cover-page")[0];
+var submitPage = getElements("submit-page")[0];
+var closeSubmit = getElements("close-submit")[0];
+var submitView = getElements("submit-view")[0];
 
 var user = {};
 
@@ -205,7 +218,7 @@ examStart.onclick = function() {
       return false;
     }
   } else {
-    user.subjectData = cloneObj(examData.slice(minSubjectNum-1, maxSubjectNum));
+    user.subjectData = getSubject(examData, minSubjectNum, maxSubjectNum);
   }
 
   displaySubject(user.subjectData[0]);
@@ -231,9 +244,48 @@ submit.onclick = function() {
     option[i].classList.add("btn-default");
   }
 
+  coverPage.classList.remove("hide");
+  submitPage.classList.remove("hide");
+
+  var trueCount = 0;
+  var subjectText = '';
+  for(let i = 0; i < user.subjectData.length; i++) {
+
+    subjectText += "第"+ (i + 1) + "题. —— 总题库中第" + (user.subjectData[i].number + 1) + "题.\n";
+    subjectText += user.subjectData[i].head + '\n';
+    var str = '';
+
+    for(let j = 0; j < user.subjectData[i].body.length; j++) {
+      str += String.fromCharCode('A'.charCodeAt() + j) + '：' + user.subjectData[i].body[j] + "\n";
+    }
+
+    str += '\n' + "正确答案是：" + user.subjectData[i].choiceTrue + " —— 你的选择是：";
+
+    if(user.subjectData[i].userChoice) {
+      str += user.subjectData[i].userChoice;
+    }
+
+    if(user.subjectData[i].userChoice === user.subjectData[i].choiceTrue){
+      trueCount++;
+      str += "（答对了）";
+    } else {
+      str += "（答错了）";
+    }
+
+    subjectText += str + '\n\n';
+  }
+
+  submitView.innerText = "共有"+ user.subjectData.length + "道题。你做对了" + trueCount + "道题";
+  submitView.innerText += "\n\n" + subjectText;
+
   user = {};
   delete window.localStorage.user;
 };
+
+closeSubmit.onclick = function() {
+  coverPage.classList.add("hide");
+  submitPage.classList.add("hide");
+}
 
 window.onload = function() {
   if(window.localStorage.user) {
