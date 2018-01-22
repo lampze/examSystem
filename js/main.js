@@ -43,7 +43,7 @@ function getRandSubject(data, time) {
   for(let i = 0; i < time; i++) {
     var isRepeat = true;
     while(isRepeat) {
-      var randNum = random(0,data.length);
+      var randNum = random(0, data.length - 1);
       isRepeat = false;
       for(let j = 0; j < allRandNum.length; j++) {
         if(randNum == allRandNum[j]) {
