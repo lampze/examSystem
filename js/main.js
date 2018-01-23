@@ -10,8 +10,8 @@ function checkIntNum(data) {
 }
 
 function displaySubject(dataObj) {
-  let str = dataObj.head + "\n\n";
-  for(let i = 0; i < dataObj.body.length; i++) {
+  var str = dataObj.head + "\n\n";
+  for(var i = 0; i < dataObj.body.length; i++) {
     str += String.fromCharCode('A'.charCodeAt() + i) + '：' + dataObj.body[i] + "\n";
   }
   subject.innerText = str;
@@ -40,12 +40,12 @@ function getRandSubject(data, time) {
   if(time > data.length) {
     return false;
   }
-  for(let i = 0; i < time; i++) {
+  for(var i = 0; i < time; i++) {
     var isRepeat = true;
     while(isRepeat) {
       var randNum = random(0, data.length - 1);
       isRepeat = false;
-      for(let j = 0; j < allRandNum.length; j++) {
+      for(var j = 0; j < allRandNum.length; j++) {
         if(randNum == allRandNum[j]) {
           isRepeat = true;
         }
@@ -62,14 +62,14 @@ function getRandSubject(data, time) {
 function getSubject(data, min, max) {
   var subjectData = [];
   subjectData = cloneObj(data.slice(min-1, max));
-  for(let i = 0; i < subjectData.length; i++) {
+  for(var i = 0; i < subjectData.length; i++) {
     subjectData[i].number = min - 1 + i;
   }
   return subjectData;
 }
 
 function selectTrueOption(dataObj) {
-  for(let i = 0; i < option.length; i++) {
+  for(var i = 0; i < option.length; i++) {
     if(dataObj.userChoice === option[i].innerText) {
       option[i].classList.remove("btn-default");
       option[i].classList.add("btn-primary");
@@ -85,6 +85,39 @@ function saveUser() {
     var storage = window.localStorage;
     window.localStorage.user = JSON.stringify(user);
   }
+}
+
+function disposeCompleteSubject(data) {
+  var trueCount = 0;
+  var subjectText = '';
+  for(var i = 0; i < data.length; i++) {
+
+    subjectText += "第"+ (i + 1) + "题. —— 总题库中第" + (data[i].number + 1) + "题.\n";
+    subjectText += data[i].head + '\n';
+    var str = '';
+
+    for(var j = 0; j < data[i].body.length; j++) {
+      str += String.fromCharCode('A'.charCodeAt() + j) + '：' + data[i].body[j] + "\n";
+    }
+
+    str += '\n' + "正确答案是：" + data[i].choiceTrue + " —— 你的选择是：";
+
+    if(data[i].userChoice) {
+      str += data[i].userChoice;
+    }
+
+    if(data[i].userChoice === data[i].choiceTrue){
+      trueCount++;
+      str += "（答对了）";
+    } else {
+      str += "（答错了）";
+    }
+
+    subjectText += str + '\n\n';
+  }
+
+  submitView.innerText = "共有"+ data.length + "道题。你做对了" + trueCount + "道题";
+  submitView.innerText += "\n\n" + subjectText;
 }
 
 
@@ -156,24 +189,32 @@ if (!("classList" in document.documentElement)) {
 
 subjectTotal.innerText = examData.length;
 
-for(let i = 0; i < option.length; i++) {
-  option[i].onclick = function() {
-    option[i].classList.remove("btn-default");
-    option[i].classList.add("btn-primary");
+// 使用匿名函数来去掉了let，解决了ie无法使用let的问题. --开始--
 
-    if(user.subjectData) {
-      user.subjectData[user.index].userChoice = option[i].innerText;
-      saveUser();
-    }
+(function() {
+  for(var i = 0; i < option.length; i++) {
+    (function(i) {
+      option[i].onclick = function() {
+        option[i].classList.remove("btn-default");
+        option[i].classList.add("btn-primary");
 
-    for(let j = 0; j < option.length; j++) {
-      if(j != i) {
-        option[j].classList.remove("btn-primary");
-        option[j].classList.add("btn-default");
-      }
-    }
-  };
-}
+        if(user.subjectData) {
+          user.subjectData[user.index].userChoice = option[i].innerText;
+          saveUser();
+        }
+
+        for(var j = 0; j < option.length; j++) {
+          if(j != i) {
+            option[j].classList.remove("btn-primary");
+            option[j].classList.add("btn-default");
+          }
+        }
+      };
+    })(i);
+  }
+})();
+
+// 使用匿名函数来去掉了let，解决了ie无法使用let的问题. --结束--
 
 randOrNot.onclick = function() {
   if(randOrNot.checked) {
@@ -239,7 +280,7 @@ submit.onclick = function() {
   submit.classList.add("hide");
   startControl.classList.remove("hide");
 
-  for(let i = 0; i < option.length; i++ ) {
+  for(var i = 0; i < option.length; i++ ) {
     option[i].classList.remove("btn-primary");
     option[i].classList.add("btn-default");
   }
@@ -247,36 +288,7 @@ submit.onclick = function() {
   coverPage.classList.remove("hide");
   submitPage.classList.remove("hide");
 
-  var trueCount = 0;
-  var subjectText = '';
-  for(let i = 0; i < user.subjectData.length; i++) {
-
-    subjectText += "第"+ (i + 1) + "题. —— 总题库中第" + (user.subjectData[i].number + 1) + "题.\n";
-    subjectText += user.subjectData[i].head + '\n';
-    var str = '';
-
-    for(let j = 0; j < user.subjectData[i].body.length; j++) {
-      str += String.fromCharCode('A'.charCodeAt() + j) + '：' + user.subjectData[i].body[j] + "\n";
-    }
-
-    str += '\n' + "正确答案是：" + user.subjectData[i].choiceTrue + " —— 你的选择是：";
-
-    if(user.subjectData[i].userChoice) {
-      str += user.subjectData[i].userChoice;
-    }
-
-    if(user.subjectData[i].userChoice === user.subjectData[i].choiceTrue){
-      trueCount++;
-      str += "（答对了）";
-    } else {
-      str += "（答错了）";
-    }
-
-    subjectText += str + '\n\n';
-  }
-
-  submitView.innerText = "共有"+ user.subjectData.length + "道题。你做对了" + trueCount + "道题";
-  submitView.innerText += "\n\n" + subjectText;
+  disposeCompleteSubject(user.subjectData);
 
   user = {};
   delete window.localStorage.user;
