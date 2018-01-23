@@ -107,7 +107,6 @@ html {
 }
 
 .submit-head {
-    display: inline-block;
     width: 100%;
     height: 26px;
     background-color: #ccc;
@@ -119,6 +118,12 @@ html {
     cursor: pointer;
 }
 
+.back-submit {
+    line-height: 26px;
+    padding: 4px 3px;
+    cursor: pointer;
+}
+
 .submit-view {
     position: absolute;
     word-break: break-all;
@@ -126,6 +131,7 @@ html {
     width: 100%;
     bottom: 0;
     top: 26px;
+    padding: 10px;
 }
 
 .sidebar {

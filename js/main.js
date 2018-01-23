@@ -136,6 +136,7 @@ var coverPage = getElements("cover-page")[0];
 var submitPage = getElements("submit-page")[0];
 var closeSubmit = getElements("close-submit")[0];
 var submitView = getElements("submit-view")[0];
+var backSubmit = getElements("back-submit")[0];
 
 var user = {};
 
@@ -274,6 +275,13 @@ examStart.onclick = function() {
 };
 
 submit.onclick = function() {
+  coverPage.classList.remove("hide");
+  submitPage.classList.remove("hide");
+
+  disposeCompleteSubject(user.subjectData);
+};
+
+closeSubmit.onclick = function() {
   subject.innerText = "";
   arrowAfter.classList.add("hide");
   arrowNext.classList.add("hide");
@@ -285,19 +293,17 @@ submit.onclick = function() {
     option[i].classList.add("btn-default");
   }
 
-  coverPage.classList.remove("hide");
-  submitPage.classList.remove("hide");
-
-  disposeCompleteSubject(user.subjectData);
+  coverPage.classList.add("hide");
+  submitPage.classList.add("hide");
 
   user = {};
   delete window.localStorage.user;
 };
 
-closeSubmit.onclick = function() {
+backSubmit.onclick = function() {
   coverPage.classList.add("hide");
   submitPage.classList.add("hide");
-}
+};
 
 window.onload = function() {
   if(window.localStorage.user) {
