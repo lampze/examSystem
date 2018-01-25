@@ -121,14 +121,14 @@ html, body {
     border-bottom: none;
 }
 
-.option {
+.options {
     position: absolute;
     bottom: 22%;
     width: 100%;
     text-align: center;
 }
 
-.option but {
+.options but {
     position: relative;
     top: 10px;
     margin: 0 2%;
@@ -144,4 +144,12 @@ html, body {
     right: 0;
     bottom: 0;
     width: 26%;
+}
+
+.hide {
+    display: none;
+}
+
+.visibility {
+    visibility: hidden;
 }
