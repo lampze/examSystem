@@ -6,3 +6,108 @@ html {
     -ms-user-select: none;
     user-select: none;
 }
+
+html, body {
+    height: 100%;
+}
+
+.header {
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: #68f;
+}
+
+.bodyer {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    bottom: 0;
+    width: 68%;
+    border: 2px;
+    border-right-style: solid;
+}
+
+.content {
+    position: absolute;
+    top: 0;
+    bottom: 30%;
+    width: 100%;
+}
+
+.subject {
+    position: absolute;
+    top: 10%;
+    right: 12%;
+    bottom: 8%;
+    left: 12%;
+    border: 2px solid;
+}
+
+.subject-number {
+    position: absolute;
+    top: 10%;
+    left: 12%;
+}
+
+.subject-number::before {
+    content: "1";
+    display: block;
+    position: relative;
+    top: -19px;
+    left: -50%;
+    width: 38px;
+    height: 38px;
+    text-align: center;
+    line-height: 38px;
+    color: #fff;
+    border-radius: 25px;
+    background-color: red;
+}
+
+.answer {
+    position: absolute;
+    top: 90%;
+    right: 12%;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border: 2px solid black;
+}
+
+.control {
+    position: absolute;
+    overflow: auto;
+    bottom: 0;
+    width: 100%;
+    height: 22%;
+    border: 2px;
+    border-top-style: solid;
+}
+
+.option {
+    position: absolute;
+    bottom: 22%;
+    width: 100%;
+    text-align: center;
+}
+
+.option bottom {
+    position: relative;
+    top: 10px;
+    margin: 0 2%;
+    width: 18%;
+    border-color: #888;
+    border-radius: 25px;
+}
+
+.sider {
+    position: absolute;
+    overflow: auto;
+    top: 30px;
+    right: 0;
+    bottom: 0;
+    width: 32%;
+}
