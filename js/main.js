@@ -125,6 +125,23 @@ function disposeCompleteSubject(data) {
   submitView.innerText += "\n\n" + subjectText;
 }
 
+function hideDom() {
+  var dom;
+  for(var i = 0; i < arguments.length; i++) {
+    dom = arguments[i];
+    dom.classList.add("hide");
+  }
+}
+
+function showDom() {
+  var dom;
+  for(var i = 0; i < arguments.length; i++) {
+    dom = arguments[i];
+    dom.classList.remove("hide");
+    dom.classList.remove("visibility");
+  }
+}
+
 
 
 var subject = getElements("subject");
@@ -142,6 +159,9 @@ var submit = getElements("submit");
 // var closeSubmit = getElements("close-submit")[0];
 // var submitView = getElements("submit-view")[0];
 // var backSubmit = getElements("back-submit")[0];
+var showPage = getElements("show-page");
+var coverPage = getElements("cover-page");
+var closePage = getElements("close-page");
 
 var user = {};
 
@@ -333,3 +353,7 @@ arrowAfter.onclick = function() {
 //     }
 //   }
 // };
+
+closePage.onclick = function() {
+  hideDom(showPage, coverPage);
+};
