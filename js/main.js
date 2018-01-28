@@ -21,6 +21,7 @@ function displaySubject(dataObj) {
   }
   subject.innerText = str;
   selectTrueOption(dataObj);
+  subjectNumber.innerText = user.index + 1 || 1;
 }
 
 function cloneObj (obj) {
@@ -153,6 +154,7 @@ function showDom() {
 
 
 var subject = getElements("subject");
+var subjectNumber = getElements("subject-number");
 var option = getElements("option");
 var randOrNot = getElements("randOrNot");
 var subjectTotal = getElements("subject-total");
@@ -162,11 +164,7 @@ var startControl = getElements("start-control");
 var arrowAfter = getElements("arrow-after");
 var arrowNext = getElements("arrow-next");
 var submit = getElements("submit");
-// var coverPage = getElements("cover-page")[0];
-// var submitPage = getElements("submit-page")[0];
-// var closeSubmit = getElements("close-submit")[0];
 var submitView = getElements("submit-view");
-// var backSubmit = getElements("back-submit")[0];
 var showPage = getElements("show-page");
 var coverPage = getElements("cover-page");
 var closePage = getElements("close-page");
@@ -221,8 +219,6 @@ if (!("classList" in document.documentElement)) {
 
 // // 为ie10以下做classList做兼容-结束-
 
-subjectTotal.innerText = examData.length;
-
 // // 使用匿名函数来去掉了let，解决了ie无法使用let的问题. --开始--
 
 (function() {
@@ -262,8 +258,8 @@ arrowNext.onclick = function() {
   if(user.index == user.subjectData.length - 1) {
     return false;
   } else {
-    displaySubject(user.subjectData[user.index + 1]);
     user.index++;
+    displaySubject(user.subjectData[user.index]);
   }
   saveUser();
 };
@@ -272,8 +268,8 @@ arrowAfter.onclick = function() {
   if(user.index == 0) {
     return false;
   } else {
-    displaySubject(user.subjectData[user.index - 1]);
     user.index--;
+    displaySubject(user.subjectData[user.index]);
   }
   saveUser();
 };
@@ -314,33 +310,12 @@ submit.onclick = function() {
 
   disposeCompleteSubject(user.subjectData);
 
-  user = {};
   delete window.localStorage.user;
 };
 
-// closeSubmit.onclick = function() {
-//   subject.innerText = "";
-//   arrowAfter.classList.add("hide");
-//   arrowNext.classList.add("hide");
-//   submit.classList.add("hide");
-//   startControl.classList.remove("hide");
-
-//   for(var i = 0; i < option.length; i++ ) {
-//     option[i].classList.remove("btn-primary");
-//     option[i].classList.add("btn-default");
-//   }
-
-//   coverPage.classList.add("hide");
-//   submitPage.classList.add("hide");
-
-//   user = {};
-//   delete window.localStorage.user;
-// };
-
-// backSubmit.onclick = function() {
-//   coverPage.classList.add("hide");
-//   submitPage.classList.add("hide");
-// };
+closePage.onclick = function() {
+  hideDom(showPage, coverPage);
+};
 
 window.onload = function() {
   if(window.localStorage.user) {
@@ -349,12 +324,12 @@ window.onload = function() {
     if(localUser.subjectData) {
       user = localUser;
       displaySubject(user.subjectData[user.index]);
+    } else {
+      showDom(coverPage, showPage);
     }
   } else {
     showDom(coverPage, showPage);
   }
-};
 
-closePage.onclick = function() {
-  hideDom(showPage, coverPage);
+  subjectTotal.innerText = examData.length;
 };
