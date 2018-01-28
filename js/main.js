@@ -133,6 +133,14 @@ function hideDom() {
   }
 }
 
+function visibilityDom() {
+  var dom;
+  for(var i = 0; i < arguments.length; i++) {
+    dom = arguments[i];
+    dom.classList.add("visibility");
+  }
+}
+
 function showDom() {
   var dom;
   for(var i = 0; i < arguments.length; i++) {
@@ -146,18 +154,18 @@ function showDom() {
 
 var subject = getElements("subject");
 var option = getElements("option");
-// var randOrNot = getElements("randOrNot")[0];
-// var subjectTotal = getElements("subject-total")[0];
-// var subjectTime = getElements("subject-time")[0];
-// var examStart = getElements("exam-start")[0];
-// var startControl = getElements("start-control")[0];
+var randOrNot = getElements("randOrNot");
+var subjectTotal = getElements("subject-total");
+var subjectRandNum = getElements("subject-rand-num");
+var examStart = getElements("exam-start");
+var startControl = getElements("start-control");
 var arrowAfter = getElements("arrow-after");
 var arrowNext = getElements("arrow-next");
 var submit = getElements("submit");
 // var coverPage = getElements("cover-page")[0];
 // var submitPage = getElements("submit-page")[0];
 // var closeSubmit = getElements("close-submit")[0];
-// var submitView = getElements("submit-view")[0];
+var submitView = getElements("submit-view");
 // var backSubmit = getElements("back-submit")[0];
 var showPage = getElements("show-page");
 var coverPage = getElements("cover-page");
@@ -213,7 +221,7 @@ if (!("classList" in document.documentElement)) {
 
 // // 为ie10以下做classList做兼容-结束-
 
-// subjectTotal.innerText = examData.length;
+subjectTotal.innerText = examData.length;
 
 // // 使用匿名函数来去掉了let，解决了ie无法使用let的问题. --开始--
 
@@ -242,19 +250,15 @@ if (!("classList" in document.documentElement)) {
 
 // // 使用匿名函数来去掉了let，解决了ie无法使用let的问题. --结束--
 
-// randOrNot.onclick = function() {
-//   if(randOrNot.checked) {
-//     subjectTime.classList.remove("hide");
-//   } else {
-//     subjectTime.classList.add("hide");
-//   }
-// };
+randOrNot.onclick = function() {
+  if(randOrNot.checked) {
+    showDom(subjectRandNum);
+  } else {
+    hideDom(subjectRandNum);
+  }
+};
 
 arrowNext.onclick = function() {
-  if(!user.index) {
-    return false;
-  }
-
   if(user.index == user.subjectData.length - 1) {
     return false;
   } else {
@@ -265,10 +269,6 @@ arrowNext.onclick = function() {
 };
 
 arrowAfter.onclick = function() {
-  if(!user.index) {
-    return false;
-  }
-
   if(user.index == 0) {
     return false;
   } else {
@@ -278,41 +278,45 @@ arrowAfter.onclick = function() {
   saveUser();
 };
 
-// examStart.onclick = function() {
-//   var minSubjectNum = getElements("min-subject-num")[0].value;
-//   var maxSubjectNum = getElements("max-subject-num")[0].value;
-//   var isRand = randOrNot.checked;
-//   if(!checkIntNum(minSubjectNum) || !checkIntNum(maxSubjectNum)) {
-//     return false;
-//   }
+examStart.onclick = function() {
+  var minSubjectNum = getElements("min-subject-num").value;
+  var maxSubjectNum = getElements("max-subject-num").value;
+  var isRand = randOrNot.checked;
+  if(!checkIntNum(minSubjectNum) || !checkIntNum(maxSubjectNum)) {
+    return false;
+  }
 
-//   if(isRand) {
-//     if(checkIntNum(subjectTime.value)) {
-//       user.subjectData = getRandSubject(examData.slice(minSubjectNum-1, maxSubjectNum), subjectTime.value);
-//     } else {
-//       return false;
-//     }
-//   } else {
-//     user.subjectData = getSubject(examData, minSubjectNum, maxSubjectNum);
-//   }
+  if(isRand) {
+    if(checkIntNum(subjectRandNum.value)) {
+      user.subjectData = getRandSubject(examData.slice(minSubjectNum-1, maxSubjectNum), subjectRandNum.value);
+    } else {
+      return false;
+    }
+  } else {
+    user.subjectData = getSubject(examData, minSubjectNum, maxSubjectNum);
+  }
 
-//   displaySubject(user.subjectData[0]);
-//   user.index = 0;
+  displaySubject(user.subjectData[0]);
+  user.index = 0;
 
-//   saveUser();
+  saveUser();
 
-//   startControl.classList.add("hide");
-//   arrowAfter.classList.remove("hide");
-//   arrowNext.classList.remove("hide");
-//   submit.classList.remove("hide");
-// };
+  hideDom(showPage, coverPage, startControl);
+};
 
-// submit.onclick = function() {
-//   coverPage.classList.remove("hide");
-//   submitPage.classList.remove("hide");
+submit.onclick = function() {
+  showDom(showPage, coverPage);
 
-//   disposeCompleteSubject(user.subjectData);
-// };
+  for(var i = 0; i < option.length; i++ ) {
+    option[i].classList.remove("btn-primary");
+    option[i].classList.add("btn-default");
+  }
+
+  disposeCompleteSubject(user.subjectData);
+
+  user = {};
+  delete window.localStorage.user;
+};
 
 // closeSubmit.onclick = function() {
 //   subject.innerText = "";
@@ -338,21 +342,18 @@ arrowAfter.onclick = function() {
 //   submitPage.classList.add("hide");
 // };
 
-// window.onload = function() {
-//   if(window.localStorage.user) {
-//     var localUser = JSON.parse(localStorage.user);
+window.onload = function() {
+  if(window.localStorage.user) {
+    var localUser = JSON.parse(localStorage.user);
 
-//     if(localUser.subjectData) {
-//       user = localUser;
-//       displaySubject(user.subjectData[user.index]);
-
-//       startControl.classList.add("hide");
-//       arrowAfter.classList.remove("hide");
-//       arrowNext.classList.remove("hide");
-//       submit.classList.remove("hide");
-//     }
-//   }
-// };
+    if(localUser.subjectData) {
+      user = localUser;
+      displaySubject(user.subjectData[user.index]);
+    }
+  } else {
+    showDom(coverPage, showPage);
+  }
+};
 
 closePage.onclick = function() {
   hideDom(showPage, coverPage);

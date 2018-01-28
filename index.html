@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="./css/main.css?v=2018012320">
+    <link rel="stylesheet" type="text/css" href="./css/main.css?v=2018012812">
   </head>
   <body>
     <div class="header">hello world</div>
@@ -33,16 +33,31 @@
       </div>
     </div>
     <div class="sider"></div>
-    <div class="cover-page"></div>
-    <div class="show-page">
+    <div class="cover-page hide"></div>
+    <div class="show-page hide">
       <div class="show-head">
         <but class="close-page btn btn-danger btn-xs">
           <div class="fa fa-close"></div>
         </but>
       </div>
-      <div class="show-body"></div>
+      <div class="show-body">
+        <div class="submit-view"></div>
+        <div class="start-control">
+          <p>一共有<span class="subject-total"></span>道题;</p>
+          <p>
+            <input type="text" placeholder="填从题库的第几题开始" class="min-subject-num"/>
+            -
+            <input type="text" placeholder="填到题库的第几题结束" class="max-subject-num"/>
+          </p>
+          <p>
+            <input type="checkbox" class="randOrNot"/>随机<br/>
+            <input type="text" placeholder="填随机多少道题" class="subject-rand-num hide"/>
+          </p>
+          <p><but class="exam-start btn btn-default">开始</but></p>
+        </div>
+      </div>
     </div>
     <script type="text/javascript" src="./js/examData.js?v=2018012218"></script>
-    <script type="text/javascript" src="./js/main.js?v=2018012320"></script>
+    <script type="text/javascript" src="./js/main.js?v=2018012812"></script>
   </body>
 </html>
