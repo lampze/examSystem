@@ -165,11 +165,19 @@ function message(txt, event) {
   var messDom = document.createElement('div');
   messDom.className = 'message';
   messDom.innerText = txt;
-  messDom.style.top = getMousePos(event).y + 'px';
-  messDom.style.left = getMousePos(event).x + 'px';
+
   BODY.appendChild(messDom);
+
+  messDom.style.top = getMousePos(event).y - messDom.clientHeight - 6 + 'px';
+  messDom.style.left = getMousePos(event).x + 6 + 'px';
+
+  var t = setInterval(function() {
+    messDom.style.top = Number(messDom.style.top.slice(0, -2)) - 1 + 'px';
+  }, 10);
+
   setTimeout(function() {
     BODY.removeChild(messDom);
+    clearInterval(t);
   }, 1000);
 }
 
