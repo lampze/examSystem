@@ -22,6 +22,16 @@ function displaySubject(dataObj) {
   subject.innerText = str;
   selectTrueOption(dataObj);
   subjectNumber.innerText = user.index + 1 || 1;
+
+  if(dataObj.body.length < 4) {
+    for(var i = dataObj.body.length; i < 4; i++) {
+      visibilityDom(option[i]);
+    }
+  } else {
+    for(var i = 0; i < 4; i++) {
+      showDom(option[i]);
+    }
+  }
 }
 
 function cloneObj (obj) {
