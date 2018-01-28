@@ -151,6 +151,27 @@ function showDom() {
   }
 }
 
+function getMousePos(event) {
+  var e = event || window.event;
+  var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+  var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+  var x = e.pageX || e.clientX + scrollX;
+  var y = e.pageY || e.clientY + scrollY;
+  return { 'x': x, 'y': y };
+}
+
+function message(txt, event) {
+  var BODY = document.getElementsByTagName("body")[0];
+  var messDom = document.createElement('div');
+  messDom.className = 'message';
+  messDom.innerText = txt;
+  messDom.style.top = getMousePos(event).y + 'px';
+  messDom.style.left = getMousePos(event).x + 'px';
+  BODY.appendChild(messDom);
+  setTimeout(function() {
+    BODY.removeChild(messDom);
+  }, 1000);
+}
 
 
 var subject = getElements("subject");
@@ -254,8 +275,9 @@ randOrNot.onclick = function() {
   }
 };
 
-arrowNext.onclick = function() {
+arrowNext.onclick = function(e) {
   if(user.index == user.subjectData.length - 1) {
+    message("这是最后一题，后面没有了！", e);
     return false;
   } else {
     user.index++;
@@ -264,8 +286,9 @@ arrowNext.onclick = function() {
   saveUser();
 };
 
-arrowAfter.onclick = function() {
+arrowAfter.onclick = function(e) {
   if(user.index == 0) {
+    message("这是第一题！！！", e);
     return false;
   } else {
     user.index--;
@@ -274,11 +297,12 @@ arrowAfter.onclick = function() {
   saveUser();
 };
 
-examStart.onclick = function() {
+examStart.onclick = function(e) {
   var minSubjectNum = getElements("min-subject-num").value;
   var maxSubjectNum = getElements("max-subject-num").value;
   var isRand = randOrNot.checked;
   if(!checkIntNum(minSubjectNum) || !checkIntNum(maxSubjectNum)) {
+    message("你填入的不是数字", e);
     return false;
   }
 
@@ -286,6 +310,7 @@ examStart.onclick = function() {
     if(checkIntNum(subjectRandNum.value)) {
       user.subjectData = getRandSubject(examData.slice(minSubjectNum-1, maxSubjectNum), subjectRandNum.value);
     } else {
+      message("你填入的不是数字", e);
       return false;
     }
   } else {

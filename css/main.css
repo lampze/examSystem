@@ -148,14 +148,6 @@ html, body {
     width: 26%;
 }
 
-.hide {
-    display: none;
-}
-
-.visibility {
-    visibility: hidden;
-}
-
 .cover-page {
     position: fixed;
     height: 100%;
@@ -194,4 +186,26 @@ html, body {
     width: 100%;
     padding: 4px;
     overflow: auto;
+}
+
+.hide {
+    display: none;
+}
+
+.visibility {
+    visibility: hidden;
+}
+
+.prominent:hover {
+    background-color: orange;
+}
+
+.message {
+    position: fixed;
+    padding: 6px;
+    max-width: 30%;
+    word-break: break-all;
+    z-index: 100;
+    background: #FFE4C4;
+    border: 2px solid black;
 }
