@@ -93,6 +93,7 @@ html, body {
     left: 24%;
     bottom: 30%;
     width: 30%;
+    z-index: 1;
     border-radius: 0;
     border: 2px solid black;
 }
@@ -120,6 +121,13 @@ html, body {
     border: 2px solid black;
     border-right: none;
     border-bottom: none;
+}
+
+.pass-time {
+    display: inline-block;
+    font-size: 24px;
+    margin-top: 5%;
+    margin-left: 5%;
 }
 
 .options {

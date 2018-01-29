@@ -191,6 +191,54 @@ function message(txt, event) {
   }, 1000);
 }
 
+function setTime(us, um , uh) {
+  var s = us || 0;
+  var m = um || 0;
+  var h = uh || 0;
+
+  var t = setInterval(function() {
+    var ds,dm,dh;
+    s++;
+    if(s == 60) {
+      m++;
+      s = 0;
+      saveUser();
+    }
+
+    if(m == 60) {
+      h++;
+      m = 0;
+    }
+
+    if(s < 10) {
+      ds = '0' + s;
+    } else {
+      ds = s;
+    }
+
+    if(m < 10) {
+      dm = '0' + m + ':';
+    } else {
+      dm = m + ':';
+    }
+
+    if(h < 10) {
+      dh = '0' + h + ':';
+    } else {
+      dh = h + ':';
+    }
+
+    passTime.innerText = dh + dm + ds;
+
+    user.time = {h: h,m: m,s: s};
+  }, 1000);
+
+  return function() {
+    passTime.innerText = '00:00:00';
+    clearInterval(t);
+  };
+}
+
 
 var subject = getElements("subject");
 var subjectNumber = getElements("subject-number");
@@ -207,8 +255,11 @@ var submitView = getElements("submit-view");
 var showPage = getElements("show-page");
 var coverPage = getElements("cover-page");
 var closePage = getElements("close-page");
+var passTime = getElements("pass-time");
 
 var user = {};
+
+var timeClear;
 
 
 
@@ -311,7 +362,12 @@ arrowAfter.onclick = function(e) {
   } else {
     user.index--;
     displaySubject(user.subjectData[user.index]);
-  }
+
+
+  for(var i = 0; i < option.length; i++ ) {
+    option[i].classList.remove("btn-primary");
+    option[i].classList.add("btn-default");
+  }  }
   saveUser();
 };
 
@@ -341,19 +397,18 @@ examStart.onclick = function(e) {
   saveUser();
 
   hideDom(showPage, coverPage, startControl);
+
+  timeClear = setTime();
 };
 
 submit.onclick = function() {
   showDom(showPage, coverPage);
 
-  for(var i = 0; i < option.length; i++ ) {
-    option[i].classList.remove("btn-primary");
-    option[i].classList.add("btn-default");
-  }
-
   disposeCompleteSubject(user.subjectData);
 
   delete window.localStorage.user;
+
+  timeClear();
 };
 
 closePage.onclick = function() {
@@ -375,4 +430,7 @@ window.onload = function() {
   }
 
   subjectTotal.innerText = examData.length;
+
+  if(user.time)
+    timeClear = setTime(user.time.s, user.time.m, user.time.h);
 };
