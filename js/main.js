@@ -404,6 +404,8 @@ examStart.onclick = function(e) {
 submit.onclick = function() {
   showDom(showPage, coverPage);
 
+  hideDom(startControl);
+
   disposeCompleteSubject(user.subjectData);
 
   delete window.localStorage.user;

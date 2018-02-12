@@ -160,6 +160,37 @@ html, body {
     width: 26%;
 }
 
+.sider-scroll-bar {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 12%;
+    border-right: solid 2px;
+}
+
+.sider-body {
+    position: absolute;
+    right: 0;
+    width: 88%;
+    height: 100%;
+}
+
+.sider-decorate {
+    height: 30px;
+    width: 80%;
+    border-right: solid 2px;
+    border-bottom: solid 2px;
+}
+
+.sider-content {
+    position: absolute;
+    top: 44px;
+    right: 0;
+    bottom: 0;
+    left: 4px;
+    overflow: hidden;
+}
+
 .cover-page {
     position: fixed;
     height: 100%;
