@@ -1,0 +1,40 @@
+.subject {
+    background-color: rgb(255,217,100);
+}
+
+.answer {
+    background-color: rgb(136,136,136);
+}
+
+.option {
+    background-color: rgb(255,217,100);
+}
+
+.option:hover {
+    background-color: rgb(219,197,129);
+}
+
+.control {
+    background-color: rgb(100,149,255);
+}
+
+.control-decorate {
+    background-color: rgb(255,217,100);
+}
+
+.arrow but {
+    background-color: rgb(144,148,168);
+}
+
+.arrow but:hover {
+    background-color: rgb(66,99,119);
+    border-color: black;
+}
+
+.sider {
+    background-color: rgb(100,149,255);
+}
+
+.sider-scroll-bar {
+    background-color: rgb(66,99,119);
+}
