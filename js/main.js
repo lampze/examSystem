@@ -242,9 +242,9 @@ function setTime(us, um , uh) {
 function addASiderLine(content,number) {
     var siderLine = document.createElement('a');
     siderLine.className = 'sider-line';
-    siderLine.innerText = number + '.' + content;
+    siderLine.innerText = number + 1 + '.' + content;
     siderLine.onclick = function() {
-        user.index = number - 1;
+        user.index = number;
         displaySubject(user.subjectData[number]);
     };
     siderContent.appendChild(siderLine);
@@ -252,7 +252,7 @@ function addASiderLine(content,number) {
 
 function displaySiderLine(data) {
     for(var i = 0; i < data.length; i++) {
-        addASiderLine(data[i].head, i+1);
+        addASiderLine(data[i].head, i);
     }
 }
 
