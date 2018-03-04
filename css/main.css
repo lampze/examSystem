@@ -151,6 +151,10 @@ html, body {
     z-index: 1;
 }
 
+.options but:hover {
+    background-color: rgb(255,217,100);
+}
+
 .sider {
     position: absolute;
     overflow: auto;
@@ -164,14 +168,14 @@ html, body {
     position: absolute;
     left: 0;
     height: 100%;
-    width: 12%;
+    width: 10%;
     border-right: solid 2px;
 }
 
 .sider-body {
     position: absolute;
     right: 0;
-    width: 88%;
+    width: 90%;
     height: 100%;
 }
 
@@ -188,7 +192,20 @@ html, body {
     right: 0;
     bottom: 0;
     left: 4px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.sider-line {
+    display: inline-block;
+    width: 100%;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    color: black;
+    margin-top: 4px;
+    cursor: pointer;
 }
 
 .cover-page {

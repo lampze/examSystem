@@ -239,6 +239,23 @@ function setTime(us, um , uh) {
   };
 }
 
+function addASiderLine(content,number) {
+    var siderLine = document.createElement('a');
+    siderLine.className = 'sider-line';
+    siderLine.innerText = number + '.' + content;
+    siderLine.onclick = function() {
+        user.index = number - 1;
+        displaySubject(user.subjectData[number]);
+    };
+    siderContent.appendChild(siderLine);
+}
+
+function displaySiderLine(data) {
+    for(var i = 0; i < data.length; i++) {
+        addASiderLine(data[i].head, i+1);
+    }
+}
+
 
 var subject = getElements("subject");
 var subjectNumber = getElements("subject-number");
@@ -256,6 +273,7 @@ var showPage = getElements("show-page");
 var coverPage = getElements("cover-page");
 var closePage = getElements("close-page");
 var passTime = getElements("pass-time");
+var siderContent = getElements('sider-content');
 
 var user = {};
 
@@ -402,6 +420,8 @@ examStart.onclick = function(e) {
   hideDom(showPage, coverPage, startControl);
 
   timeClear = setTime();
+    
+  displaySiderLine(user.subjectData);
 };
 
 submit.onclick = function() {
@@ -436,6 +456,8 @@ window.onload = function() {
 
   subjectTotal.innerText = examData.length;
 
-  if(user.time)
+  if(user.time) {
     timeClear = setTime(user.time.s, user.time.m, user.time.h);
+  }
+    displaySiderLine(user.subjectData);
 };
