@@ -87,11 +87,11 @@ function getSubject(data, min, max) {
 function selectTrueOption(dataObj) {
   for(var i = 0; i < option.length; i++) {
     if(dataObj.userChoice === option[i].innerText) {
-      option[i].classList.remove("btn-default");
-      option[i].classList.add("btn-primary");
+      option[i].classList.remove(btnUnselect);
+      option[i].classList.add(btnSelect);
     } else {
-      option[i].classList.remove("btn-primary");
-      option[i].classList.add("btn-default");
+      option[i].classList.remove(btnSelect);
+      option[i].classList.add(btnUnselect);
     }
   }
 }
@@ -261,6 +261,9 @@ var user = {};
 
 var timeClear;
 
+var btnSelect = "btn-select";
+var btnUnselect = "btn-unselect";
+
 
 
 // // 为ie10以下做classList做兼容 -开始-
@@ -315,8 +318,8 @@ if (!("classList" in document.documentElement)) {
   for(var i = 0; i < option.length; i++) {
     (function(i) {
       option[i].onclick = function() {
-        option[i].classList.remove("btn-default");
-        option[i].classList.add("btn-primary");
+        option[i].classList.remove(btnUnselect);
+        option[i].classList.add(btnSelect);
 
         if(user.subjectData) {
           user.subjectData[user.index].userChoice = option[i].innerText;
@@ -325,8 +328,8 @@ if (!("classList" in document.documentElement)) {
 
         for(var j = 0; j < option.length; j++) {
           if(j != i) {
-            option[j].classList.remove("btn-primary");
-            option[j].classList.add("btn-default");
+            option[j].classList.remove(btnSelect);
+            option[j].classList.add(btnUnselect);
           }
         }
       };
@@ -365,8 +368,8 @@ arrowAfter.onclick = function(e) {
 
 
   for(var i = 0; i < option.length; i++ ) {
-    option[i].classList.remove("btn-primary");
-    option[i].classList.add("btn-default");
+    option[i].classList.remove(btnSelect);
+    option[i].classList.add(btnUnselect);
   }  }
   saveUser();
 };
