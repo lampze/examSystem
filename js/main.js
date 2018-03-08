@@ -383,12 +383,7 @@ arrowAfter.onclick = function(e) {
   } else {
     user.index--;
     displaySubject(user.subjectData[user.index]);
-
-
-  for(var i = 0; i < option.length; i++ ) {
-    option[i].classList.remove(btnSelect);
-    option[i].classList.add(btnUnselect);
-  }  }
+  }
   saveUser();
 };
 
@@ -447,6 +442,13 @@ window.onload = function() {
     if(localUser.subjectData) {
       user = localUser;
       displaySubject(user.subjectData[user.index]);
+      displaySiderLine(user.subjectData);
+      
+      if(user.time) {
+        timeClear = setTime(user.time.s, user.time.m, user.time.h);
+      } else {
+        timeClear = setTime();
+      }
     } else {
       showDom(coverPage, showPage);
     }
@@ -455,9 +457,4 @@ window.onload = function() {
   }
 
   subjectTotal.innerText = examData.length;
-
-  if(user.time) {
-    timeClear = setTime(user.time.s, user.time.m, user.time.h);
-  }
-    displaySiderLine(user.subjectData);
 };
