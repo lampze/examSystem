@@ -433,6 +433,9 @@ submit.onclick = function() {
 
 closePage.onclick = function() {
   hideDom(showPage, coverPage);
+  
+  timeClear = setTime(user.time.s, user.time.m, user.time.h);
+  saveUser();
 };
 
 window.onload = function() {

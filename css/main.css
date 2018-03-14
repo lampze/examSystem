@@ -63,14 +63,6 @@ html, body {
     background-color: red;
 }
 
-.subject-decorate {
-    position: absolute;
-    right: 14%;
-    bottom: 90%;
-    background-color: #FFF;
-    transform: translateY(3px);
-}
-
 .answer {
     position: absolute;
     top: 90%;
@@ -195,6 +187,7 @@ html, body {
     width: 80%;
     border-right: solid 2px;
     border-bottom: solid 2px;
+    border-bottom-right-radius: 20px 20px;
 }
 
 .sider-content {
