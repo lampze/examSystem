@@ -45,7 +45,7 @@ html, body {
     left: 12%;
     padding: 12px;
     border: 2px solid;
-    font-size: 20px;
+    font-size: 1.6em;
     overflow: auto;
 }
 .subject-number {
@@ -127,12 +127,11 @@ html, body {
 
 .pass-time {
     display: inline-block;
-    font-size: 24px;
     margin-top: 5%;
     margin-left: 5%;
-    font-family: fzss;
+    font-family: hack;
     font-weight: bold;
-    font-size: 26px;
+    font-size: 1.6em;
 }
 
 .options {
@@ -148,7 +147,7 @@ html, body {
     margin: 0 2%;
     width: 18%;
     border-radius: 25px;
-    font-family: fzss;
+    font-family: hack;
     font-size: 20px;
     font-weight: bold;
     z-index: 1;
@@ -206,7 +205,7 @@ html, body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 12px;
+    font-size: 0.9em;
     color: black;
     margin-top: 4px;
     cursor: pointer;
