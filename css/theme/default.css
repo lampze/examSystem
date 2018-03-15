@@ -11,12 +11,12 @@
     
 }
 
-.subject {
-    background-color: rgb(255,217,100);
+.header {
+    background-color: #68f;
 }
 
-.answer {
-    background-color: rgb(136,136,136);
+.subject {
+    background-color: rgb(255,217,100);
 }
 
 .option:hover {

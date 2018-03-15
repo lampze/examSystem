@@ -17,7 +17,6 @@ html, body {
     text-align: center;
     line-height: 30px;
     border-bottom: solid 2px;
-    background-color: #68f;
 }
 
 .bodyer {
@@ -61,18 +60,6 @@ html, body {
     color: #fff;
     border-radius: 25px;
     background-color: red;
-}
-
-.answer {
-    position: absolute;
-    top: 90%;
-    right: 12%;
-    width: 100px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    border: 2px solid black;
-    background-color: #fff;
 }
 
 .control {
@@ -151,10 +138,6 @@ html, body {
     font-size: 20px;
     font-weight: bold;
     z-index: 1;
-}
-
-.options but:hover {
-    background-color: rgb(255,217,100);
 }
 
 .sider {
@@ -259,10 +242,6 @@ html, body {
     visibility: hidden;
 }
 
-.prominent:hover {
-    background-color: orange;
-}
-
 .message {
     position: fixed;
     padding: 6px;
@@ -271,4 +250,22 @@ html, body {
     z-index: 100;
     background: #FFE4C4;
     border: 2px solid black;
+}
+
+
+.btn-unselect {
+    color: #000;
+    background-color: #ddd;
+    border-color: #888;
+}
+
+.btn-select {
+    color: #000;
+    background-color: #aaa;
+    border-color: #888;
+    
+}
+
+.option:hover {
+    background-color: #aaa;
 }
