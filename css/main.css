@@ -215,13 +215,45 @@ html, body {
 .show-head {
     position: absolute;
     width: 100%;
-    height: 30;
-    padding: 3px;
+    height: 30px;
+    padding: 0;
     border-bottom: 2px solid black;
 }
 
-.close-page {
+.page-tags {
+    height: 100%;
+    width: 60%;
+    overflow: hidden;
+    float: left;
+}
+
+.page-tags but {
+    background-color: #999;
+    height: 80%;
+    width: 20%;
+    float: left;
+    margin-left: 0.3em;
+    text-align: center;
+    cursor: pointer;
+}
+
+.page-search {
+    background-color: blue;
+    height: 100%;
+    width: 30%;
     float: right;
+}
+
+.close-page {
+    display: inline-block;
+    float: right;
+    text-align: center;
+    line-height: 26px;
+    width: 26px;
+    border-radius: 25px;
+}
+
+.close-page but {
     border-radius: 25px;
 }
 
