@@ -256,6 +256,10 @@ function displaySiderLine(data) {
     }
 }
 
+function hideAllPage() {
+  hideDom(startControl, submitView);
+}
+
 
 var subject = getElements("subject");
 var subjectNumber = getElements("subject-number");
@@ -272,6 +276,10 @@ var submitView = getElements("submit-view");
 var showPage = getElements("show-page");
 var coverPage = getElements("cover-page");
 var closePage = getElements("close-page");
+var tagStart = getElements("tag-start");
+var tagSubmitView = getElements("tag-submit-view");
+var tagSubmitSimple = getElements("tag-submit-simple");
+var tagSubmitError = getElements("tag-submit-error");
 var passTime = getElements("pass-time");
 var siderContent = getElements('sider-content');
 
@@ -420,7 +428,7 @@ examStart.onclick = function(e) {
 };
 
 submit.onclick = function() {
-  showDom(showPage, coverPage);
+  showDom(showPage, coverPage, tagStart, tagSubmitView);
 
   hideDom(startControl);
 
@@ -431,11 +439,23 @@ submit.onclick = function() {
   timeClear();
 };
 
+tagStart.onclick = function() {
+  hideAllPage();
+  showDom(startControl);
+}
+
+tagSubmitView.onclick = function() {
+  hideAllPage();
+  showDom(submitView);
+}
+
 closePage.onclick = function() {
   hideDom(showPage, coverPage);
   
-  timeClear = setTime(user.time.s, user.time.m, user.time.h);
-  saveUser();
+  if(user.time) {
+    timeClear = setTime(user.time.s, user.time.m, user.time.h);
+    saveUser();
+  }
 };
 
 window.onload = function() {
