@@ -428,7 +428,7 @@ examStart.onclick = function(e) {
 };
 
 submit.onclick = function() {
-  showDom(showPage, coverPage, tagStart, tagSubmitView);
+  showDom(showPage, coverPage, tagStart, tagSubmitView, submitView);
 
   hideDom(startControl);
 
