@@ -103,37 +103,58 @@ function saveUser() {
   }
 }
 
-function disposeCompleteSubject(data) {
-  var trueCount = 0;
+function getViewSubject(data) {
   var subjectText = '';
-  for(var i = 0; i < data.length; i++) {
+  subjectText += "总题库中第" + (data.number + 1) + "题.\n";
+  subjectText += data.head + '\n';
+  var str = '';
 
-    subjectText += "第"+ (i + 1) + "题. —— 总题库中第" + (data[i].number + 1) + "题.\n";
-    subjectText += data[i].head + '\n';
-    var str = '';
-
-    for(var j = 0; j < data[i].body.length; j++) {
-      str += String.fromCharCode('A'.charCodeAt() + j) + '：' + data[i].body[j] + "\n";
-    }
-
-    str += '\n' + "正确答案是：" + data[i].choiceTrue + " —— 你的选择是：";
-
-    if(data[i].userChoice) {
-      str += data[i].userChoice;
-    }
-
-    if(data[i].userChoice === data[i].choiceTrue){
-      trueCount++;
-      str += "（答对了）";
-    } else {
-      str += "（答错了）";
-    }
-
-    subjectText += str + '\n\n';
+  for(var j = 0; j < data.body.length; j++) {
+    str += String.fromCharCode('A'.charCodeAt() + j) + '：' + data.body[j] + "\n";
   }
 
+  str += '\n' + "正确答案是：" + data.choiceTrue + " —— 你的选择是：";
+  
+  if(data.userChoice) {
+    str += data.userChoice;
+  }
+
+  if(data.userChoice === data.choiceTrue) {
+    str += "（答对了）";
+  } else {
+    str += "（答错了）";
+  }
+
+  subjectText += str + '\n\n';
+  
+  return subjectText;
+}
+
+function disposeCompleteSubject(data) {
+  var trueCount = 0;
+  var allError = [];
+  var allSubjectText = [];
+  var subjectText = '';
+  var SubjectSimpleText = '';
+  var errorSubjectText = '';
+  
+  for(var i = 0; i < data.length; i++) {
+    allSubjectText.push("第" + (i+1) + "题. —— " + getViewSubject(data[i]));
+    
+    if(data[i].userChoice === data[i].choiceTrue) {
+      trueCount++;
+    } else {
+      allError.push(allSubjectText[i]);
+    }
+  }
+  
+  subjectText = allSubjectText.join('');
   submitView.innerText = "共有"+ data.length + "道题。你做对了" + trueCount + "道题";
   submitView.innerText += "\n\n" + subjectText;
+  
+  errorSubjectText = allError.join('');
+  submitError.innerText = "你做错了" + allError.length + "道题" + "\n\n";
+  submitError.innerText += errorSubjectText;
 }
 
 function hideDom() {
@@ -278,7 +299,7 @@ function displaySiderLine(data) {
 }
 
 function hideAllPage() {
-  hideDom(startControl, submitView);
+  hideDom(startControl, submitView, submitSimple, submitError);
 }
 
 
@@ -301,6 +322,8 @@ var tagStart = getElements("tag-start");
 var tagSubmitView = getElements("tag-submit-view");
 var tagSubmitSimple = getElements("tag-submit-simple");
 var tagSubmitError = getElements("tag-submit-error");
+var submitSimple = getElements("submit-simple");
+var submitError = getElements("submit-error");
 var passTime = getElements("pass-time");
 var siderContent = getElements('sider-content');
 
@@ -511,7 +534,7 @@ examStart.onclick = function(e) {
 };
 
 submit.onclick = function() {
-  showDom(showPage, coverPage, tagStart, tagSubmitView, submitView);
+  showDom(showPage, coverPage, tagStart, tagSubmitView, submitView, tagSubmitSimple, tagSubmitError);
 
   hideDom(startControl);
 
@@ -530,6 +553,16 @@ tagStart.onclick = function() {
 tagSubmitView.onclick = function() {
   hideAllPage();
   showDom(submitView);
+}
+
+tagSubmitSimple.onclick = function() {
+  hideAllPage();
+  showDom(submitSimple);
+}
+
+tagSubmitError.onclick = function() {
+  hideAllPage();
+  showDom(submitError);
 }
 
 closePage.onclick = function() {
