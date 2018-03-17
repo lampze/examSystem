@@ -35,15 +35,15 @@ function displaySubject(dataObj) {
 }
 
 function cloneObj (obj) {
-    var newObj = {};
-    if (obj instanceof Array) {
-        newObj = [];
-    }
-    for (var key in obj) {
-        var val = obj[key];
-        newObj[key] = typeof val === 'object' ? cloneObj(val) : val;
-    }
-    return newObj;
+  var newObj = {};
+  if (obj instanceof Array) {
+    newObj = [];
+  }
+  for (var key in obj) {
+    var val = obj[key];
+    newObj[key] = typeof val === 'object' ? cloneObj(val) : val;
+  }
+  return newObj;
 };
 
 function random(min, max) {
@@ -170,6 +170,20 @@ function getMousePos(event) {
   return { 'x': x, 'y': y };
 }
 
+function randomNum(minNum, maxNum) {
+  switch(arguments.length){ 
+    case 1: 
+      return parseInt(Math.random()*minNum+1,10); 
+      break; 
+    case 2: 
+      return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
+      break; 
+    default: 
+      return 0; 
+      break; 
+  } 
+}
+
 function message(txt, event) {
   var BODY = document.getElementsByTagName("body")[0];
   var messDom = document.createElement('div');
@@ -180,15 +194,20 @@ function message(txt, event) {
 
   messDom.style.top = getMousePos(event).y - messDom.clientHeight - 6 + 'px';
   messDom.style.left = getMousePos(event).x + 6 + 'px';
-
-  var t = setInterval(function() {
-    messDom.style.top = Number(messDom.style.top.slice(0, -2)) - 1 + 'px';
-  }, 10);
-
-  setTimeout(function() {
-    BODY.removeChild(messDom);
-    clearInterval(t);
-  }, 1000);
+  
+  var t = 50;
+  
+  function move() {
+    if(t === 0) {
+      BODY.removeChild(messDom);
+      return true;
+    } else {
+      messDom.style.top = Number(messDom.style.top.slice(0, -2)) - randomNum(1, 4) + 'px';
+      t--;
+      window.requestAnimationFrame(move);
+    }
+  }
+  window.requestAnimationFrame(move);
 }
 
 function setTime(us, um , uh) {
@@ -240,20 +259,22 @@ function setTime(us, um , uh) {
 }
 
 function addASiderLine(content,number) {
-    var siderLine = document.createElement('a');
-    siderLine.className = 'sider-line';
-    siderLine.innerText = number + 1 + '.' + content;
-    siderLine.onclick = function() {
-        user.index = number;
-        displaySubject(user.subjectData[number]);
-    };
-    siderContent.appendChild(siderLine);
+  var siderLine = document.createElement('a');
+  siderLine.className = 'sider-line';
+  siderLine.innerText = number + 1 + '.' + content;
+  siderLine.onclick = function() {
+    user.index = number;
+    displaySubject(user.subjectData[number]);
+  };
+  siderContent.appendChild(siderLine);
 }
 
 function displaySiderLine(data) {
-    for(var i = 0; i < data.length; i++) {
-        addASiderLine(data[i].head, i);
-    }
+  siderContent.innerText = "";
+  
+  for(var i = 0; i < data.length; i++) {
+    addASiderLine(data[i].head, i);
+  }
 }
 
 function hideAllPage() {
@@ -338,6 +359,47 @@ if (!("classList" in document.documentElement)) {
 
 // // 为ie10以下做classList做兼容-结束-
 
+
+// 为ie兼容requestAnimationFrame --结束--
+
+// Adapted from https://gist.github.com/paulirish/1579671 which derived from 
+// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+
+// requestAnimationFrame polyfill by Erik Möller.
+// Fixes from Paul Irish, Tino Zijdel, Andrew Mao, Klemen Slavič, Darius Bacon
+
+// MIT license
+
+if (!Date.now)
+    Date.now = function() { return new Date().getTime(); };
+
+(function() {
+    'use strict';
+    
+    var vendors = ['webkit', 'moz'];
+    for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
+        var vp = vendors[i];
+        window.requestAnimationFrame = window[vp+'RequestAnimationFrame'];
+        window.cancelAnimationFrame = (window[vp+'CancelAnimationFrame']
+                                   || window[vp+'CancelRequestAnimationFrame']);
+    }
+    if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
+        || !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+        var lastTime = 0;
+        window.requestAnimationFrame = function(callback) {
+            var now = Date.now();
+            var nextTime = Math.max(lastTime + 16, now);
+            return setTimeout(function() { callback(lastTime = nextTime); },
+                              nextTime - now);
+        };
+        window.cancelAnimationFrame = clearTimeout;
+    }
+}());
+
+// 为ie兼容requestAnimationFrame --结束--
+
+
 // // 使用匿名函数来去掉了let，解决了ie无法使用let的问题. --开始--
 
 (function() {
@@ -399,8 +461,29 @@ examStart.onclick = function(e) {
   var minSubjectNum = getElements("min-subject-num").value;
   var maxSubjectNum = getElements("max-subject-num").value;
   var isRand = randOrNot.checked;
+  
+  if(minSubjectNum <= 0 || maxSubjectNum <= 0) {
+    message("请填一个正数", e);
+    return false;
+  }
+  
   if(!checkIntNum(minSubjectNum) || !checkIntNum(maxSubjectNum)) {
     message("你填入的不是数字", e);
+    return false;
+  }
+  
+  if(minSubjectNum > maxSubjectNum) {
+    message("数字填反了吧？", e);
+    return false;
+  }
+  
+  if(maxSubjectNum > examData.length) {
+    message("题库只有"+examData.length+"道题", e);
+    return false;
+  }
+  
+  if(subjectRandNum.value > maxSubjectNum - minSubjectNum + 1) {
+    message("你选中的只有"+(maxSubjectNum-minSubjectNum+1)+"道题，不能随机出"+subjectRandNum.value+"道题", e);
     return false;
   }
 
@@ -414,16 +497,16 @@ examStart.onclick = function(e) {
   } else {
     user.subjectData = getSubject(examData, minSubjectNum, maxSubjectNum);
   }
-
-  displaySubject(user.subjectData[0]);
+  
   user.index = 0;
+  displaySubject(user.subjectData[0]);
 
   saveUser();
 
   hideDom(showPage, coverPage, startControl);
 
   timeClear = setTime();
-    
+  
   displaySiderLine(user.subjectData);
 };
 
