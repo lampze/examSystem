@@ -301,3 +301,27 @@ function displaySiderLine(data) {
 function hideAllPage() {
   hideDom(startControl, submitView, submitSimple, submitError);
 }
+
+function displayTheme(name) {
+  if(!name) {
+    return false;
+  }
+  
+  var themeUrl = "./css/theme/" + name + ".css";
+  var themeId = name + "Theme";
+  var themeDom = document.createElement('link');
+  
+  themeDom.rel = "stylesheet";
+  themeDom.type = "text/css";
+  themeDom.href = themeUrl;
+  themeDom.id = themeId;
+  themeDom.className = "theme";
+  
+  document.head.appendChild(themeDom);
+  
+  return themeDom;
+}
+
+function removeTheme(dom) {
+  document.head.removeChild(dom);
+}

@@ -29,6 +29,9 @@ var timeClear;
 var btnSelect = "btn-select";
 var btnUnselect = "btn-unselect";
 
+var allTheme = [];
+var nowThemeDom;
+
 
 
 // // 使用匿名函数来去掉了let，解决了ie无法使用let的问题. --开始--
