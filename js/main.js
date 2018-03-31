@@ -1,6 +1,9 @@
 var subject = getElements("subject");
 var subjectNumber = getElements("subject-number");
 var answer = getElements("answer");
+var headNav = getElements("head-nav");
+var navContent = getElements("nav-content");
+var changeTheme = getElements("change-theme");
 var option = getElements("option");
 var randOrNot = getElements("randOrNot");
 var subjectTotal = getElements("subject-total");
@@ -187,3 +190,11 @@ closePage.onclick = function() {
 };
 
 answer.onclick = displayAnswer;
+
+headNav.onclick = function() {
+  if(navContent.classList.contains("hide")) {
+    showDom(navContent);
+  } else {
+    hideDom(navContent);
+  }
+}

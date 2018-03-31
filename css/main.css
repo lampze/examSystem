@@ -14,9 +14,48 @@ html, body {
 .header {
     width: 100%;
     height: 30px;
-    text-align: center;
     line-height: 30px;
     border-bottom: solid 2px;
+    text-align: center;
+}
+
+.head-tag {
+    display: inline-block;
+}
+
+.head-nav {
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+.nav-content {
+    position: fixed;
+    width: 8em;
+    padding: 8px 1px;
+    background-color: #fff;
+    border: 2px solid black;
+    border-top: none;
+    border-left: none;
+    z-index: 2;
+}
+
+.nav-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-content ul li {
+    padding: 2px 20px;
+    cursor: pointer;
+}
+
+.nav-content ul li:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .bodyer {
