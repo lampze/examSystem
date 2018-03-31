@@ -32,6 +32,8 @@ function displaySubject(dataObj) {
       showDom(option[i]);
     }
   }
+  
+  hideAnswer();
 }
 
 function cloneObj (obj) {
@@ -324,4 +326,12 @@ function displayTheme(name) {
 
 function removeTheme(dom) {
   document.head.removeChild(dom);
+}
+
+function displayAnswer() {
+  answer.textContent = user.subjectData[user.index].choiceTrue;
+}
+
+function hideAnswer() {
+  answer.textContent = '';
 }

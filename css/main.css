@@ -47,6 +47,7 @@ html, body {
     font-size: 1.6em;
     overflow: auto;
 }
+
 .subject-number {
     position: absolute;
     top: 10%;
@@ -60,6 +61,19 @@ html, body {
     color: #fff;
     border-radius: 25px;
     background-color: red;
+}
+
+.answer {
+    position: absolute;
+    top: 92%;
+    right: 12%;
+    border: 2px solid black;
+    border-top: none;
+    width: 80px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer;
 }
 
 .control {

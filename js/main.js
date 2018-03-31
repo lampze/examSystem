@@ -1,5 +1,6 @@
 var subject = getElements("subject");
 var subjectNumber = getElements("subject-number");
+var answer = getElements("answer");
 var option = getElements("option");
 var randOrNot = getElements("randOrNot");
 var subjectTotal = getElements("subject-total");
@@ -184,3 +185,5 @@ closePage.onclick = function() {
     saveUser();
   }
 };
+
+answer.onclick = displayAnswer;
