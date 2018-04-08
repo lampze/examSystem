@@ -188,8 +188,12 @@ function getMousePos(event) {
   var e = event || window.event;
   var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
   var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
-  var x = e.pageX || e.clientX + scrollX;
-  var y = e.pageY || e.clientY + scrollY;
+  var x=document.body.clientWidth/2,
+      y=document.body.clientHeight/2;
+  if(e) {
+    x = e.pageX || e.clientX + scrollX;
+    y = e.pageY || e.clientY + scrollY;
+  }
   return { 'x': x, 'y': y };
 }
 
@@ -334,4 +338,46 @@ function displayAnswer() {
 
 function hideAnswer() {
   answer.textContent = '';
+}
+
+function addKeyControl() {
+  document.onkeypress = function(e) {
+    var char = e.key;
+    switch(char) {
+      case 'N':
+      case 'n':
+      case '.':
+        arrowNext.onclick();
+        break;
+      case 'P':
+      case 'p':
+      case ',':
+        arrowAfter.onclick();
+        break;
+      case 'a':
+      case 'A':
+        option[0].onclick();
+        break;
+      case 'B':
+      case 'b':
+        option[1].onclick();
+        break;
+      case 'C':
+      case 'c':
+        option[2].onclick();
+        break;
+      case 'D':
+      case 'd':
+        option[3].onclick();
+        break;
+      case 'S':
+      case 's':
+        displayAnswer();
+        break;
+    }
+  }
+}
+
+function removeKeyControl() {
+  document.onkeypress = function(){};
 }

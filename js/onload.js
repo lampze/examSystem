@@ -22,4 +22,6 @@ window.onload = function() {
   subjectTotal.innerText = examData.length;
   
   nowThemeDom = displayTheme(user.theme);
+  
+  addKeyControl();
 };

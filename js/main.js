@@ -158,6 +158,8 @@ submit.onclick = function() {
   delete window.localStorage.user;
 
   timeClear();
+  
+  removeKeyControl();
 };
 
 tagStart.onclick = function() {
@@ -187,6 +189,8 @@ closePage.onclick = function() {
     timeClear = setTime(user.time.s, user.time.m, user.time.h);
     saveUser();
   }
+  
+  addKeyControl();
 };
 
 answer.onclick = displayAnswer;
