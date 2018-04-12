@@ -19,12 +19,15 @@ var coverPage = getElements("cover-page");
 var closePage = getElements("close-page");
 var tagStart = getElements("tag-start");
 var tagSubmitView = getElements("tag-submit-view");
-var tagSubmitSimple = getElements("tag-submit-simple");
 var tagSubmitError = getElements("tag-submit-error");
-var submitSimple = getElements("submit-simple");
 var submitError = getElements("submit-error");
 var passTime = getElements("pass-time");
 var siderContent = getElements('sider-content');
+var tagTheme = getElements('tag-theme');
+var themeControl = getElements('theme-control');
+var selectTheme = getElements('select-theme');
+var describeTheme = getElements('describe-theme');
+var confirmTheme = getElements('confirm-theme');
 
 var user = {};
 
@@ -149,7 +152,7 @@ examStart.onclick = function(e) {
 };
 
 submit.onclick = function() {
-  showDom(showPage, coverPage, tagStart, tagSubmitView, submitView, tagSubmitSimple, tagSubmitError);
+  showDom(showPage, coverPage, tagStart, tagSubmitView, submitView, tagSubmitError, tagTheme);
 
   hideDom(startControl);
 
@@ -170,11 +173,6 @@ tagStart.onclick = function() {
 tagSubmitView.onclick = function() {
   hideAllPage();
   showDom(submitView);
-}
-
-tagSubmitSimple.onclick = function() {
-  hideAllPage();
-  showDom(submitSimple);
 }
 
 tagSubmitError.onclick = function() {
@@ -202,3 +200,32 @@ headNav.onclick = function() {
     hideDom(navContent);
   }
 }
+
+changeTheme.onclick = function() {
+  hideAllPage();
+  hideDom(tagSubmitView, tagSubmitError, tagStart);
+  showDom(themeControl, tagTheme, coverPage, showPage);
+}
+
+tagTheme.onclick = function() {
+  hideAllPage();
+  showDom(themeControl, tagTheme, coverPage, showPage);
+}
+
+confirmTheme.onclick = function() {
+  var themeName = selectTheme.value;
+  user.theme = themeName;
+  nowThemeDom = displayTheme(themeName);
+  saveUser();
+}
+
+selectTheme.onclick = function() {
+  var themeName = selectTheme.value;
+  var themeObj = {
+    default: '班长的最初作品',
+    quit: '我不需要任何皮肤！！！'
+  };
+  describeTheme.innerText = themeObj[themeName];
+}
+
+selectTheme.onmouseout = selectTheme.onclick;

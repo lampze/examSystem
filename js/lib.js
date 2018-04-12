@@ -305,7 +305,7 @@ function displaySiderLine(data) {
 }
 
 function hideAllPage() {
-  hideDom(startControl, submitView, submitSimple, submitError);
+  hideDom(startControl, submitView, submitError, themeControl);
 }
 
 function displayTheme(name) {
@@ -313,6 +313,15 @@ function displayTheme(name) {
     return false;
   }
   
+  if(name == 'quit') {
+    user.theme = '';
+    saveUser();
+    if(nowThemeDom) {
+      document.head.removeChild(nowThemeDom);
+    }
+    return false;
+  }
+
   var themeUrl = "./css/theme/" + name + ".css";
   var themeId = name + "Theme";
   var themeDom = document.createElement('link');
