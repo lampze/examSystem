@@ -99,8 +99,9 @@ arrowAfter.onclick = function(e) {
 };
 
 examStart.onclick = function(e) {
-  var minSubjectNum = getElements("min-subject-num").value;
-  var maxSubjectNum = getElements("max-subject-num").value;
+  var minSubjectNum = Number(getElements("min-subject-num").value);
+  var maxSubjectNum = Number(getElements("max-subject-num").value);
+  var randNum = Number(subjectRandNum.value);
   var isRand = randOrNot.checked;
   
   if(minSubjectNum <= 0 || maxSubjectNum <= 0) {
@@ -123,14 +124,14 @@ examStart.onclick = function(e) {
     return false;
   }
   
-  if(subjectRandNum.value > maxSubjectNum - minSubjectNum + 1) {
-    message("你选中的只有"+(maxSubjectNum-minSubjectNum+1)+"道题，不能随机出"+subjectRandNum.value+"道题", e);
+  if(randNum > maxSubjectNum - minSubjectNum + 1) {
+    message("你选中的只有"+(maxSubjectNum-minSubjectNum+1)+"道题，不能随机出"+randNum+"道题", e);
     return false;
   }
 
   if(isRand) {
-    if(checkIntNum(subjectRandNum.value)) {
-      user.subjectData = getRandSubject(examData.slice(minSubjectNum-1, maxSubjectNum), subjectRandNum.value);
+    if(checkIntNum(randNum)) {
+      user.subjectData = getRandSubject(examData.slice(minSubjectNum-1, maxSubjectNum), randNum);
     } else {
       message("你填入的不是数字", e);
       return false;
