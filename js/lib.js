@@ -312,13 +312,14 @@ function displayTheme(name) {
   if(!name) {
     return false;
   }
+
+  if(nowThemeDom) {
+    document.head.removeChild(nowThemeDom);
+  }
   
   if(name == 'quit') {
     user.theme = '';
     saveUser();
-    if(nowThemeDom) {
-      document.head.removeChild(nowThemeDom);
-    }
     return false;
   }
 
