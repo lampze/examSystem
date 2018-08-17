@@ -3,6 +3,8 @@ var subjectNumber = getElements("subject-number");
 var answer = getElements("answer");
 var headNav = getElements("head-nav");
 var navContent = getElements("nav-content");
+var headInfo = getElements("head-info");
+var infoContent = getElements("info-content");
 var changeTheme = getElements("change-theme");
 var option = getElements("option");
 var randOrNot = getElements("randOrNot");
@@ -200,6 +202,14 @@ headNav.onclick = function() {
   } else {
     hideDom(navContent);
   }
+}
+
+headInfo.onmouseover = function() {
+  showDom(infoContent);
+}
+
+headInfo.onmouseout = function() {
+  hideDom(infoContent);
 }
 
 changeTheme.onclick = function() {

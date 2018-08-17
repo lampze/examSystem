@@ -32,6 +32,15 @@ html, body {
     font-size: 1.5em;
 }
 
+.head-info {
+    float: right;
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
 .nav-content {
     position: fixed;
     width: 8em;
@@ -56,6 +65,17 @@ html, body {
 
 .nav-content ul li:hover {
     background-color: rgba(0, 0, 0, 0.1);
+}
+
+.info-content {
+    position: fixed;
+    right: 0;
+    padding: 6px;
+    background-color: #fff;
+    border: 2px solid black;
+    border-top: none;
+    border-right: none;
+    z-index: 2;
 }
 
 .bodyer {
